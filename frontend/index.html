@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CTI Frontend</title>
+</head>
+<body>
+    <h1>CTI Frontend</h1>
+    <button id="call-backend">Call Backend</button>
+    <h2>Response will appear here:</h2>
+    <pre id="response">No response yet.</pre>
+
+    <script>
+        const button = document.getElementById("call-backend");
+        const responseEl = document.getElementById("response");
+
+        button.addEventListener("click", async () => {
+            responseEl.textContent = "Loading...";
+            try {
+                const res = await fetch("/api/data"); // backend endpoint
+                const data = await res.json();
+                responseEl.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                responseEl.textContent = "Error: " + err;
+            }
+        });
+    </script>
+</body>
+</html>
